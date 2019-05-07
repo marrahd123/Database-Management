@@ -1,0 +1,50 @@
+1. SQL
+  - Example
+    Using Beers(name, manf), what beers are made by Anheuser-Busch?:
+    SELECT name
+    FROM Beers
+    WHERE manf = ’Anheuser-Busch’;
+
+ 2. Submitting:
+ git status
+ git add -A
+ git commit -m "my message"
+ git push origin master
+
+------EXAMPLES-----------
+1) Using relations Likes(drinker, beer) and Frequents(drinker, bar), find the beers liked by at least one person who frequents Joe’s Bar.
+SELECT beer FROM Likes, Frequents WHERE bar = 'Joe''s Bar' AND Frequents.drinker = Likes.drinker;
+
+2.Example: Intersection
+Using Likes(drinker, beer), Sells(bar, beer, price), and Frequents(drinker, bar), find the drinkers and beers such that:
+The drinker likes the beer, and
+The drinker frequents at least one bar that sells the beer.
+
+WAY 1:
+
+select Likes.drinker, Likes.beer
+from Likes, Frequents, Sells
+where Likes.Beer = Sells.beer AND Likes.drinker = Frequents.drinker AND Sells.bar = Frequents.bar;
+
+SUBQUERY WAY:
+
+select drinker,beer
+from Likes L
+where EXISTS (select * from Frequents F, Sells S (where F.bar = S.bar AND L.beer = S.beer AND F.drinker = L.drinker));
+
+ANOTHER SOLUTION:
+
+Select * from likes INTERSECT select drinker, beer from Sells, Frequents where Frequents.bar = Sells.bar;
+
+UNIQUE PAIRS:
+(rows * rows-1) / 2
+
+
+-----Average Movie Rating-----
+Select AVG(stars)
+From Movie natural join Rating
+GROUP BY mID
+
+
+--------INDEXES----------
+searches in log(n) time

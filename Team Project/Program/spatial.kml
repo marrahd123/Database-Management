@@ -1,0 +1,122 @@
+<!-- Location 1 -->
+<kml xmlns="http://earth.google.com/kml/2.0">
+<Placemark>
+  <description>Taylor 205</description>
+  <name>Taylor 205</name>
+  <Point>
+  <coordinates>-93.4094885,37.5997674,0</coordinates>
+  </Point>
+</Placemark>
+</kml>
+
+<!-- Location 2 -->
+<kml xmlns="http://earth.google.com/kml/2.0">
+<Placemark>
+  <description>Chapel</description>
+  <name>Chapel</name>
+  <Point>
+  <coordinates>-93.4108,37.6013,0</coordinates>
+  </Point>
+</Placemark>
+</kml>
+
+<!-- Location 3 -->
+<kml xmlns="http://earth.google.com/kml/2.0">
+<Placemark>
+  <description>Mellers</description>
+  <name>Mellers</name>
+  <Point>
+  <coordinates>-93.4109,37.6007,0</coordinates>
+  </Point>
+</Placemark>
+</kml>
+
+<!-- Location 4 -->
+<kml xmlns="http://earth.google.com/kml/2.0">
+<Placemark>
+  <description>SBU Bell Tower</description>
+  <name>SBU Bell Tower</name>
+  <Point>
+  <coordinates>-93.4102,37.6013,0</coordinates>
+  </Point>
+</Placemark>
+</kml>
+
+<!-- Location 5 -->
+<kml xmlns="http://earth.google.com/kml/2.0">
+<Placemark>
+  <description>SBU Globe Fountain</description>
+  <name>SBU Globe Fountain</name>
+  <Point>
+  <coordinates>-93.4104,37.6007,0</coordinates>
+  </Point>
+</Placemark>
+</kml>
+
+<!-- Location 6 -->
+<kml xmlns="http://earth.google.com/kml/2.0">
+<Placemark>
+  <description>Plaster 202</description>
+  <name>Plaster 202</name>
+  <Point>
+  <coordinates>-93.4084,37.5993,0</coordinates>
+  </Point>
+</Placemark>
+</kml>
+
+<!-- Location 7 -->
+<kml xmlns="http://earth.google.com/kml/2.0">
+<Placemark>
+  <description>Randolph Chapel</description>
+  <name>Randolph Chapel</name>
+  <Point>
+  <coordinates>-93.4097,37.6001,0</coordinates>
+  </Point>
+</Placemark>
+</kml>
+
+<!-- Location 8 -->
+<kml xmlns="http://earth.google.com/kml/2.0">
+<Placemark>
+  <description>Dunnegan Park</description>
+  <name>Dunnegan Park</name>
+  <Point>
+  <coordinates>-93.4161167,37.6285305,0</coordinates>
+  </Point>
+</Placemark>
+</kml>
+
+<!-- Location 9 -->
+<kml xmlns="http://earth.google.com/kml/2.0">
+<Placemark>
+  <description>Casebolt</description>
+  <name>Casebolt</name>
+  <Point>
+  <coordinates>-93.4118269,37.6015075,0</coordinates>
+  </Point>
+</Placemark>
+</kml>
+
+<!-- Location 10 -->
+<kml xmlns="http://earth.google.com/kml/2.0">
+<Placemark>
+  <description>Beasley 405</description>
+  <name>Beasley 405</name>
+  <Point>
+  <coordinates>-93.4115710,37.6043991,0</coordinates>
+  </Point>
+</Placemark>
+</kml>
+
+<!-- Location 11 -->
+<kml xmlns="http://earth.google.com/kml/2.0">
+<Placemark>
+  <description>SBU Football Field</description>
+  <name>SBU Football Field</name>
+  <Point>
+  <coordinates>-93.412994,37.601901,0</coordinates>
+  </Point>
+</Placemark>
+</kml>
+
+<!-- Location 12 -->

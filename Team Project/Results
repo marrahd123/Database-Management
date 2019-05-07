@@ -1,0 +1,62 @@
+https://console.cloud.google.com/cloudshell/editor?project=wired-cogency-239416&_ga=2.175105314.-1284179595.1556641231&_gac=1.184822619.1556816004.CjwKCAjwqqrmBRAAEiwAdpDXtEaMM_Z1rxqDlWSSeJ7VnJ7mBCM3C8hF21yGZJV_gtjJu0GWlFU7PRoCf14QAvD_BwE&shellonly=true
+gcloud sql connect team-project --user=postgres
+d@t@b@se
+SELECT postgis_full_version();
+
+postgres=> select * from locations;
+ id |        name        |     lng     |    lat     |                        geom
+----+--------------------+-------------+------------+----------------------------------------------------
+  1 | Taylor 205         | -93.4094885 | 37.5997674 | 0101000020E6100000A3E5400F355A57C07D1A9C2DC5CC4240
+  2 | Chapel             |    -93.4108 |    37.6013 | 0101000020E6100000984C158C4A5A57C0DB8AFD65F7CC4240
+  3 | Mellers            |    -93.4109 |    37.6007 | 0101000020E61000004A7B832F4C5A57C0865AD3BCE3CC4240
+  4 | SBU Bell Tower     |    -93.4102 |    37.6013 | 0101000020E61000006E3480B7405A57C0DB8AFD65F7CC4240
+  5 | SBU Globe Fountain |    -93.4104 |    37.6007 | 0101000020E6100000D1915CFE435A57C0865AD3BCE3CC4240
+  6 | Plaster 202        |    -93.4084 |    37.5993 | 0101000020E6100000EEEBC039235A57C0143FC6DCB5CC4240
+  7 | Randolph Chapel    |    -93.4097 |    37.6001 | 0101000020E6100000F54A5986385A57C0302AA913D0CC4240
+  8 | Dunnegan Park      | -93.4161167 | 37.6285305 | 0101000020E61000007274F0A7A15A57C0EE04FBAF73D04240
+  9 | Casebolt           | -93.4118269 | 37.6015075 | 0101000020E61000003CC7365F5B5A57C03C66A032FECC4240
+ 10 | Beasley 405        |  -93.411571 | 37.6043991 | 0101000020E6100000D93EE42D575A57C0AD1D20F35CCD4240
+(10 rows)
+postgres=> SELECT ST_AsText(ST_ConvexHull(ST_Collect(geom)))
+postgres-> FROM locations;
+                                                             st_astext
+------------------------------------------------------------------------------------------------------------------------------------
+ POLYGON((-93.4084 37.5993,-93.4094885 37.5997674,-93.4109 37.6007,-93.4118269 37.6015075,-93.4161167 37.6285305,-93.4084 37.5993))
+(1 row)
+postgres=> SELECT c2.name as name, c1.lat as originLat, c1.lng as originLng, c2.lat as destLat, c2.lng as destLng, ST_DISTANCE(c1.geom, c2.geom) as distance
+postgres-> FROM locations c1
+postgres-> JOIN locations c2 on c1.id != c2.id
+postgres-> WHERE c1.name = 'Taylor 205'
+postgres-> ORDER BY distance
+postgres-> LIMIT 3;
+        name        | originlat  |  originlng  | destlat | destlng  |       distance
+--------------------+------------+-------------+---------+----------+----------------------
+ Randolph Chapel    | 37.5997674 | -93.4094885 | 37.6001 | -93.4097 | 0.000394150998987233
+ Plaster 202        | 37.5997674 | -93.4094885 | 37.5993 | -93.4084 |  0.00118460753415895
+ SBU Globe Fountain | 37.5997674 | -93.4094885 | 37.6007 | -93.4104 |  0.00130406096867149
+(3 rows)
+
+
+ostgres=> select * from locations;
+ id |        name        |     lng     |    lat     |                        geom
+----+--------------------+-------------+------------+----------------------------------------------------
+  1 | Taylor 205         | -93.4094885 | 37.5997674 | 0101000020E6100000A3E5400F355A57C07D1A9C2DC5CC4240
+  2 | Chapel             |    -93.4108 |    37.6013 | 0101000020E6100000984C158C4A5A57C0DB8AFD65F7CC4240
+  3 | Mellers            |    -93.4109 |    37.6007 | 0101000020E61000004A7B832F4C5A57C0865AD3BCE3CC4240
+  4 | SBU Bell Tower     |    -93.4102 |    37.6013 | 0101000020E61000006E3480B7405A57C0DB8AFD65F7CC4240
+  5 | SBU Globe Fountain |    -93.4104 |    37.6007 | 0101000020E6100000D1915CFE435A57C0865AD3BCE3CC4240
+  6 | Plaster 202        |    -93.4084 |    37.5993 | 0101000020E6100000EEEBC039235A57C0143FC6DCB5CC4240
+  7 | Randolph Chapel    |    -93.4097 |    37.6001 | 0101000020E6100000F54A5986385A57C0302AA913D0CC4240
+  8 | Dunnegan Park      | -93.4161167 | 37.6285305 | 0101000020E61000007274F0A7A15A57C0EE04FBAF73D04240
+  9 | Casebolt           | -93.4118269 | 37.6015075 | 0101000020E61000003CC7365F5B5A57C03C66A032FECC4240
+ 10 | Beasley 405        |  -93.411571 | 37.6043991 | 0101000020E6100000D93EE42D575A57C0AD1D20F35CCD4240
+ 11 | Football Field     |  -93.412994 |  37.601901 |
+(11 rows)
+postgres=> UPDATE locations SET geom = ST_SetSRID(ST_MakePoint(lng, lat), 4326);
+UPDATE 11
+postgres=> SELECT ST_AsText(ST_ConvexHull(ST_Collect(geom)))
+postgres-> FROM locations;
+                                                    st_astext
+-----------------------------------------------------------------------------------------------------------------
+ POLYGON((-93.4084 37.5993,-93.4094885 37.5997674,-93.412994 37.601901,-93.4161167 37.6285305,-93.4084 37.5993))
+(1 row)
