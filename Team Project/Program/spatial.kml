@@ -120,3 +120,12 @@
 </kml>
 
 <!-- Location 12 -->
+<kml xmlns="http://earth.google.com/kml/2.0">
+<Placemark>
+  <description>Woods Supermarket</description>
+  <name>Woods Supermarket</name>
+  <Point>
+  <coordinates>-93.4068,37.6063,0</coordinates>
+  </Point>
+</Placemark>
+</kml>

@@ -1,11 +1,3 @@
-/* =====================================
-	Creating table and inserting values
-========================================*/
-/* Create locations table */
-
-mysql-ctl cli
-use coordinates;
-select * from locations;
 
 CREATE TABLE locations
 (
@@ -15,7 +7,7 @@ CREATE TABLE locations
 	lat float
 );
 
-/* Insert the 9 locations with long, lat values */
+/* Name, Longitude, Latitude */
 INSERT INTO locations(name, lng, lat) VALUES ('Taylor 205',-93.4094885,37.5997674);
 INSERT INTO locations(name, lng, lat) VALUES ('Chapel',-93.4108,37.6013);
 INSERT INTO locations(name, lng, lat) VALUES ('Mellers',-93.4109,37.6007);
@@ -27,26 +19,19 @@ INSERT INTO locations(name, lng, lat) VALUES ('Dunnegan Park', -93.4161167,37.62
 INSERT INTO locations(name, lng, lat) VALUES ('Casebolt', -93.4118269,37.6015075);
 INSERT INTO locations(name, lng, lat) VALUES ('Beasley 405', -93.4115710,37.6043991);
 INSERT INTO locations(name, lng, lat) VALUES ('Football Field', -93.412994,37.601901);
-INSERT INTO locations(name, lng, lat) VALUES ('', 0,0);
+INSERT INTO locations(name, lng, lat) VALUES ('Woods Supermarket', -93.4068,37.6063);
 
 /* Create a geometry type column */
 ALTER TABLE locations ADD COLUMN geom geometry(POINT, 4326);
-
-/* Derive geometry values (in WGS84/SRID4326 format) from lat, lng values */
-/* Note that this command should be run after "INSERT INTO" commands */
-UPDATE locations SET geom = ST_SetSRID(ST_MakePoint(lng, lat), 4326);
+UPDATE locations SET geom = ST_SetSRID(ST_MakePoint(lng, lat), 4326); /* 4326 - Postgis */
 
 
-/* =====================================
-	Find Convex Hull locations
-========================================*/
+/* Convex Hull */
 SELECT ST_AsText(ST_ConvexHull(ST_Collect(geom)))
 FROM locations;
 
 
-/* =====================================
-	Find 3 Nearest Neighbors
-========================================*/
+/* Find 3 Nearest Neighbors from first location, Taylor 205 */
 SELECT c2.name as name, c1.lat as originLat, c1.lng as originLng, c2.lat as destinationLat, c2.lng as destinationLng, ST_DISTANCE(c1.geom, c2.geom) as distance
 FROM locations c1
 JOIN locations c2 on c1.id != c2.id
